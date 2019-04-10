@@ -5,7 +5,7 @@ This project searches for mutual exclusivity in the given mutation matrix, for t
 ## Copy
 
 ```
-git pull 
+git pull https://github.com/PathwayAndDataAnalysis/mutex-de-novo.git
 ```
 
 ## Build
@@ -15,7 +15,7 @@ cd mutex-de-novo
 mvn compile
 mvn assembly:single
 ```
-The last command will generate the `mutex-de-novo.jar` file under the `target` directory. Put this jar to a convenient location for analysis.
+The last command will generate the `mutex-de-novo.jar` file under the `target` directory. Put this jar to a convenient location to use in analyses.
 
 ## Analysis inputs
 
@@ -40,5 +40,17 @@ Prepare the gene sets file as a two-column tab-delimited text file. First column
 |Set3|Gene2 Gene5 Gene7|
 
 Use the HGNC Symbol for the genes.
- 
- 
+
+## Execution
+Assume you have the following in your current directory.
+
+`mutex-de-novo.jar:` The jar file that was previously generated.
+`matrix.txt:` The tab-delimited mutation matrix as described above.
+`gene-sets.txt:` The tab-delimited gene sets file as described above.
+
+Run mutex-de-novo using the below command.
+
+```
+java -jar mutex-de-novo.jar calculate matrix.txt gene-sets.txt output-directory 1000
+```
+Here, `output-directory` is the desired name for the output directory that will be generated during execution. `1000` is the randomization parameter that will be directly proportional to the run time. Use a small value, like `10`, for testing, and use a large value, like `10000` for actual analysis.
