@@ -42,4 +42,4 @@ $CMD filter-results-to-most-hit Reactome-original/results-with-names.txt Reactom
 $CMD annotate-set-members Reactome-original/R-HSA-400253-mutex.txt yuen-turner-autism Reactome-original/results-circadian-members-table.txt
 
 # 14. Generate a table for PI3K/AKT Signaling genes
-CMD annotate-set-members Reactome-original/R-HSA-1257604-mutex.txt yuen-turner-autism Reactome-original/results-PI3K-members-table.txt
+$CMD annotate-set-members Reactome-original/R-HSA-1257604-mutex.txt yuen-turner-autism Reactome-original/results-PI3K-members-table.txt
