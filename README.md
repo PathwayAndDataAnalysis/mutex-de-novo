@@ -22,9 +22,8 @@ The last command will generate the `mutex-de-novo.jar` file under the `target` d
 ### Mutation matrix
 
 Prepare the mutation matrix as a tab-delimited text file. Example:
-```
-  S1  S2  S3  S4
-G1  0 1 0
-G2  1 0 0
-G3  0 1 1
-```
+
+|  |S1|S2|S3|S4
+|G1|0 |1 |0 |1
+|G2|1 |1 |0 |0
+|G3|0 |1 |1 |0
