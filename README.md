@@ -33,6 +33,7 @@ Prepare the mutation matrix as a tab-delimited text file. Example:
 
 Prepare the gene sets file as a two-column tab-delimited text file. First column should have a unique name or ID for the gene set. Second column should have the genes separated with a space. Example:
 
+|   |   |
 |---|---|
 |Set1|Gene1 Gene2 Gene3|
 |Set2|Gene4 Gene5 Gene1 Gene3|
