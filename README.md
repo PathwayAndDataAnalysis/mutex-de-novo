@@ -44,12 +44,11 @@ Use the HGNC Symbol for the genes.
 ## Execution
 Assume you have the following in your current directory.
 
-`mutex-de-novo.jar:` The jar file that was previously generated.
-`matrix.txt:` The tab-delimited mutation matrix as described above.
+`mutex-de-novo.jar:` The jar file that was previously generated.<br>
+`matrix.txt:` The tab-delimited mutation matrix as described above.<br>
 `gene-sets.txt:` The tab-delimited gene sets file as described above.
 
 Run mutex-de-novo using the below command.
-
 ```
 java -jar mutex-de-novo.jar calculate matrix.txt gene-sets.txt output-directory 1000
 ```
