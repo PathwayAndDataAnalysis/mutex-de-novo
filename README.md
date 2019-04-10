@@ -29,6 +29,8 @@ Prepare the mutation matrix as a tab-delimited text file. Example:
 |Gene2|1 |1 |0 |0
 |Gene3|0 |1 |1 |0
 
+Use the HGNC Symbol for the genes and make sure each sample name is unique.
+
 ### Gene sets file
 
 Prepare the gene sets file as a two-column tab-delimited text file. First column should have a unique name or ID for the gene set. Second column should have the genes separated with a space. Example:
