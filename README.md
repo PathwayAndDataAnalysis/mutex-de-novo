@@ -50,12 +50,6 @@ Prepare the gene sets file as a two-column tab-delimited text file. First column
     </tr>
 </table>
 
-|   |   |
-|---|---|
-|Set1|Gene1 Gene2 Gene3|
-|Set2|Gene4 Gene5 Gene1 Gene3|
-|Set3|Gene2 Gene5 Gene7|
-
 Use the HGNC Symbol for the genes and make sure each set name is unique.
 
 ## Execution
