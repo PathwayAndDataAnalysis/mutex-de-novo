@@ -6,7 +6,10 @@ ITER="10000"
 # Prefix of the command to run mutex-de-novo
 CMD="java -jar mutex-de-novo.jar"
 
-# The next 10 runs have high execution time. They can run parallel in a cluster.
+# FDR cutoffs to use in exploring the result sizes
+FDRS="0.01 0.05 0.1 0.2 0.3 0.4 0.5"
+
+# The next 10 runs have high execution time. They can run in parallel on a cluster.
 
 # 1. Generate original results on SFARI genes
 $CMD calculate yuen-turner-autism SFARI SFARI-original $ITER
@@ -33,13 +36,13 @@ $CMD calculate yuen-autism-turner-control Reactome Reactome-Yuen-autism-Turner-c
 # The rest need to be executed after the above runs finish, and these have low execution time.
 
 # 11. Explore the result size of Reactome pathways under different filtering conditions and FDR cutoff
-$CMD explore-significance-in-results Reactome-original/results.txt Reactome-original/results-significance-explored.txt mutex 0.01 0.05 0.1 0.2 0.3 0.4 0.5
+$CMD explore-significance-in-results Reactome-original/results.txt Reactome-original/results-significance-explored.txt mutex $FDRS
 
 # 12. Do the same for Yuen-only run
-$CMD explore-significance-in-results Reactome-Yuen/results.txt Reactome-Yuen/results-significance-explored.txt mutex 0.01 0.05 0.1 0.2 0.3 0.4 0.5
+$CMD explore-significance-in-results Reactome-Yuen/results.txt Reactome-Yuen/results-significance-explored.txt mutex $FDRS
 
 # 13. Do the same for the run where Turner controls used instead of autism samples
-$CMD explore-significance-in-results Reactome-Yuen-autism-Turner-control/results.txt Reactome-Yuen-autism-Turner-control/results-significance-explored.txt mutex 0.01 0.05 0.1 0.2 0.3 0.4 0.5
+$CMD explore-significance-in-results Reactome-Yuen-autism-Turner-control/results.txt Reactome-Yuen-autism-Turner-control/results-significance-explored.txt mutex $FDRS
 
 # 14. Generate table for pathway results for testing highest mutated 50 pathways
 $CMD filter-results-to-most-hit Reactome-original/results-with-names.txt Reactome-original/results-top50.txt mutex 50
