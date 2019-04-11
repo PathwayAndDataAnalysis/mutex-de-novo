@@ -35,6 +35,21 @@ Use the HGNC Symbol for the genes and make sure each sample name is unique.
 
 Prepare the gene sets file as a two-column tab-delimited text file. First column should have a unique name or ID for the gene set. Second column should have the genes separated with a space. Example:
 
+<table>
+    <tr>
+        <td>Set1</td>
+        <td>Gene1 Gene2 Gene3</td>
+    </tr>
+    <tr>
+        <td>Set2</td>
+        <td>Gene4 Gene5 Gene1 Gene3</td>
+    </tr>
+    <tr>
+        <td>Set3</td>
+        <td>Gene2 Gene5 Gene7</td>
+    </tr>
+</table>
+
 |   |   |
 |---|---|
 |Set1|Gene1 Gene2 Gene3|
