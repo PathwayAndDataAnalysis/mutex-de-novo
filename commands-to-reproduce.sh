@@ -11,17 +11,17 @@ FDRS="0.01 0.05 0.1 0.2 0.3 0.4 0.5"
 
 # The next 10 runs have high execution time. They can run in parallel on a cluster.
 
-# 1. Generate original results on SFARI genes
+# 1. Generate original results on SFARI genes (Table 1)
 $CMD calculate yuen-turner-autism SFARI SFARI-original $ITER
 
-# 2. Generate original results on Reactome pathways.
+# 2. Generate original results on Reactome pathways (Table 4)
 $CMD calculate yuen-turner-autism Reactome Reactome-original $ITER
 
-# 3,4. Use only introns
+# 3,4. Use only introns (Table 2)
 $CMD calculate yuen-turner-autism-intron SFARI SFARI-intron $ITER
 $CMD calculate yuen-turner-autism-intron Reactome Reactome-intron $ITER
 
-# 5,6. Use only non-introns
+# 5,6. Use only non-introns (Table 3)
 $CMD calculate yuen-turner-autism-not-intron SFARI SFARI-not-intron $ITER
 $CMD calculate yuen-turner-autism-not-intron Reactome Reactome-not-intron $ITER
 
@@ -44,11 +44,17 @@ $CMD explore-significance-in-results Reactome-Yuen/results.txt Reactome-Yuen/res
 # 13. Do the same for the run where Turner controls used instead of autism samples
 $CMD explore-significance-in-results Reactome-Yuen-autism-Turner-control/results.txt Reactome-Yuen-autism-Turner-control/results-significance-explored.txt mutex $FDRS
 
-# 14. Generate table for pathway results for testing highest mutated 50 pathways
+# 14. Generate table for pathway results for testing highest mutated 50 pathways (Table 5)
 $CMD filter-results-to-most-hit Reactome-original/results-with-names.txt Reactome-original/results-top50.txt mutex 50
 
-# 15. Generate a table for Circadian Clock genes
+# 15. Generate table for pathway results for Yuen-only run, testing highest mutated 50 pathways (Table 8)
+$CMD filter-results-to-most-hit Reactome-Yuen/results-with-names.txt Reactome-Yuen/results-top50.txt mutex 50
+
+# 16. Generate table for pathway results for the run where ASD samples from Turner dataset is replaced with controls, testing highest mutated 50 pathways (Table 9)
+$CMD filter-results-to-most-hit Reactome-Yuen-autism-Turner-control/results-with-names.txt Reactome-Yuen-autism-Turner-control/results-top50.txt mutex 50
+
+# 17. Generate a table for Circadian Clock genes (Table 6)
 $CMD annotate-set-members Reactome-original/R-HSA-400253-mutex.txt yuen-turner-autism Reactome-original/results-circadian-members-table.txt
 
-# 16. Generate a table for PI3K/AKT Signaling genes
+# 18. Generate a table for PI3K/AKT Signaling genes (Table 7)
 $CMD annotate-set-members Reactome-original/R-HSA-1257604-mutex.txt yuen-turner-autism Reactome-original/results-PI3K-members-table.txt
