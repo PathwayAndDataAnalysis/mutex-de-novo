@@ -40,8 +40,9 @@ public class SignificanceExplorer
 		Arrays.stream(fdrs).forEach(fdr -> FileUtil.tab_write("FDR=" + fdr, writer));
 
 		Map<Double, Integer> maximums = new HashMap<>();
+		Arrays.stream(fdrs).forEach(fdr -> maximums.put(fdr, 0));
 
-		// For each hit threshold, find the number of significant results for each FDR threshold
+			// For each hit threshold, find the number of significant results for each FDR threshold
 		for (int thr : orderedUniqueHits)
 		{
 			// Get the subset using the threshold
@@ -56,7 +57,7 @@ public class SignificanceExplorer
 				List<String> select = FDR.select(filteredP, null, fdr);
 				writer.write("\t" + select.size());
 
-				if (maximums.getOrDefault(fdr, 0) < select.size())
+				if (maximums.get(fdr) < select.size())
 				{
 					maximums.put(fdr, select.size());
 				}
