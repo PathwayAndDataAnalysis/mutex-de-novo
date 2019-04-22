@@ -42,7 +42,7 @@ public class SignificanceExplorer
 		Map<Double, Integer> maximums = new HashMap<>();
 		Arrays.stream(fdrs).forEach(fdr -> maximums.put(fdr, 0));
 
-			// For each hit threshold, find the number of significant results for each FDR threshold
+		// For each hit threshold, find the number of significant results for each FDR threshold
 		for (int thr : orderedUniqueHits)
 		{
 			// Get the subset using the threshold
