@@ -1,6 +1,6 @@
 package org.panda.mutexdenovo;
 
-import org.panda.resource.DenovoDB;
+import org.panda.resource.autismdatasets.DenovoDB;
 
 import java.io.File;
 import java.io.IOException;
@@ -174,6 +174,27 @@ public class Main
 			// Explore significances and write results
 			SignificanceExplorer.filterToTopHit(inFile, outFile, pType, topX);
 		}, "  input-filename   output-filename   pattern-type   top-how-many", 4),
+		ASSESS_MEMBER_GENE_SIGNIFICANCE("Generate a list of significant members of the gene sets in the results.",
+			args ->
+		{
+			String dir = args[1];
+			String outFile = args[2];
+			PatternType pType = PatternType.get(args[3]);
+			double fdrThr = Double.valueOf(args[4]);
+
+			if (pType == null)
+			{
+				throw new RuntimeException("Unknown pattern type: " + args[3] + ". Possible values: " +
+					PatternType.MUTEX.toString().toLowerCase() + ", " + PatternType.COOC.toString().toLowerCase());
+			}
+
+			// Find significant members and write results
+			MemberGeneContributionAnalyzer.findAndDocument(dir, outFile, pType == PatternType.MUTEX ? "-mutex.txt" : "-cooc.txt", fdrThr);
+
+			if (dir.contains("Reactome")) ReactomeNameAdder.add(outFile,
+				outFile.substring(0, outFile.lastIndexOf(".")) + "-names-added.txt");
+
+		}, "  results-directory-as-input   output-filename   pattern-type   fdr-threshold", 4),
 		;
 
 		Action action;
