@@ -1,0 +1,48 @@
+nshuffles:
+        "10000"
+
+FDRs:
+        "0.01 0.05 0.1 0.2 0.3 0.4 0.5"
+
+# find top X significant results
+topX:
+        "50"
+
+
+# needs only "results.txt" at the end of the day
+type-1-outdir:
+        [
+         "SFARI-intron",
+         "SFARI-not-intron",
+         "SFARI-original",
+         "SFARI-Yuen",
+         "SFARI-Yuen-autism-Turner-control"
+        ]
+
+
+# needs all of type 1's outfiles plus:
+#       "results-with-names.txt"
+type-2-outdir:
+        [
+         "Reactome-intron",
+         "Reactome-not-intron"
+        ]
+
+
+# needs all of type 2's outfiles plus:
+#        "results-top50.txt" 
+#        "results-significance-explored.txt"
+type-3-outdir:
+        [
+         "Reactome-Yuen",
+         "Reactome-Yuen-autism-Turner-control"
+        ]
+
+
+# needs all of type 3's outfiles plus: 
+#       "results-circadian-members-table.txt" 
+#       "results-PI3K-members-table.txt"
+type-4-outdir:
+        [
+         "Reactome-original"
+        ] 
