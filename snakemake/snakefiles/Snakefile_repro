@@ -17,7 +17,7 @@ from os.path import join
 
 # DEFINE VARIABLES FOR EASY SWAPPING:
 
-CONFIGURATION_YAML="configs/repro.yaml"
+CONFIGURATION_YAML="snakemake/configs/repro.yaml"
 
 ########################################
 
@@ -74,12 +74,12 @@ ANNO_CMD=COMMAND_BASE + " annotate-set-members"
 # "input" here defines which files we expect to see at the end of the whole workflow
 rule targets:
 	input:
-		expand(OUTBASE + "{outdir}/results.txt", outdir=T1_OUTDIRS + T2_OUTDIRS + T3_OUTDIRS + T4_OUTDIRS)
-		expand(OUTBASE + "{outdir}/results-with-names.txt", outdir=T2_OUTDIRS + T3_OUTDIRS + T4_OUTDIRS)
-		expand(OUTBASE + "{outdir}/results-top50.txt", outdir=T3_OUTDIRS + T4_OUTDIRS)
-		expand(OUTBASE + "{outdir}/results-significance-explored.txt", outdir=T3_OUTDIRS + T4_OUTDIRS)
-		expand(OUTBASE + "{outdir}/results-circadian-members-table.txt", outdir=T4_OUTDIRS)
-		expand(OUTBASE + "{outdir}/results-PI3K-members-table.txt)
+		expand(OUTBASE + "{outdir}/results.txt", outdir=T1_OUTDIRS + T2_OUTDIRS + T3_OUTDIRS + T4_OUTDIRS),
+		expand(OUTBASE + "{outdir}/results-with-names.txt", outdir=T2_OUTDIRS + T3_OUTDIRS + T4_OUTDIRS),
+		expand(OUTBASE + "{outdir}/results-top50.txt", outdir=T3_OUTDIRS + T4_OUTDIRS),
+		expand(OUTBASE + "{outdir}/results-significance-explored.txt", outdir=T3_OUTDIRS + T4_OUTDIRS),
+		expand(OUTBASE + "{outdir}/results-circadian-members-table.txt", outdir=T4_OUTDIRS),
+		expand(OUTBASE + "{outdir}/results-PI3K-members-table.txt", outdir=T4_OUTDIRS)
 
 # rules 1-10 can run in parallel.
 rule SFARI_original_1:
@@ -103,7 +103,7 @@ rule SFARI_original_1:
 rule Reactome_original_2:
 	input:
 		# TODO: Check this input
-		INBASE + Reactome-pathways.txt
+		INBASE + "Reactome-pathways.txt",
 		INBASE + "denovo-db.non-ssc-samples.variants.tsv",
 		INBASE + "denovo-db.ssc-samples.variants.tsv",
 		INBASE + "Yuen2017-T3.csv"
@@ -298,7 +298,7 @@ rule top50_of_2s_output_and_names_14:
 		OUTBASE + "Reactome-original/results.txt"
 	output:
 		named_res = OUTBASE + "Reactome-original/results-with-names.txt",
-		topx_res = OUTBASE + "Reactome-original/results-top{x}.txt".format(x=topX)
+		topx_res = OUTBASE + "Reactome-original/results-top{x}.txt".format(x=TOP_X)
 	shell:
 		"""
 		{cmd_prfx} {{output.named_res}} {{output.topx_res}} {topx}
@@ -312,8 +312,8 @@ rule top50_of_8s_output_and_names_15:
 		# TODO: Check this input
 		OUTBASE + "Reactome-Yuen/results.txt"
 	output:
-		named_res = OUTBASE + "Reactome-Yuen/results-with-names.txt"
-		topx_res = OUTBASE + "Reactome-Yuen/results-top{x}.txt".format(x=topX)
+		named_res = OUTBASE + "Reactome-Yuen/results-with-names.txt",
+		topx_res = OUTBASE + "Reactome-Yuen/results-top{x}.txt".format(x=TOP_X)
 	shell:
 		"""
 		{cmd_prfx} {{output.named_res}} {{output.topx_res}} {topx}
@@ -327,14 +327,14 @@ rule top50_of_10s_output_and_names_16:
 		# TODO: Check this input
 		OUTBASE + "Reactome-Yuen-autism-Turner-control/results.txt"
 	output:
-		named_res = OUTBASE + "Reactome-Yuen-autism-Turner-control/results-with-names.txt"
-		topx_res = OUTBASE + "Reactome-Yuen-autism-Turner-control/results-top{x}.txt".format(x=topX)
+		named_res = OUTBASE + "Reactome-Yuen-autism-Turner-control/results-with-names.txt",
+		topx_res = OUTBASE + "Reactome-Yuen-autism-Turner-control/results-top{x}.txt".format(x=TOP_X)
 	shell:
 		"""
 		{cmd_prfx} {{output.named_res}} {{output.topx_res}} {topX}
 		""".format(
 			   cmd_prfx=FILT_CMD,
-			   topx=TOP_X
+			   topX=TOP_X
 			  )
 
 rule reactome_orig_circadian_members_17:
