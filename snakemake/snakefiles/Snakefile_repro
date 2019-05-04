@@ -74,21 +74,39 @@ ANNO_CMD=COMMAND_BASE + " annotate-set-members"
 # "input" here defines which files we expect to see at the end of the whole workflow
 rule targets:
 	input:
-		expand(OUTBASE + "{outdir}/results.txt", outdir=T1_OUTDIRS + T2_OUTDIRS + T3_OUTDIRS + T4_OUTDIRS),
-		expand(OUTBASE + "{outdir}/results-with-names.txt", outdir=T2_OUTDIRS + T3_OUTDIRS + T4_OUTDIRS),
-		expand(OUTBASE + "{outdir}/results-top50.txt", outdir=T3_OUTDIRS + T4_OUTDIRS),
-		expand(OUTBASE + "{outdir}/results-significance-explored.txt", outdir=T3_OUTDIRS + T4_OUTDIRS),
-		expand(OUTBASE + "{outdir}/results-circadian-members-table.txt", outdir=T4_OUTDIRS),
-		expand(OUTBASE + "{outdir}/results-PI3K-members-table.txt", outdir=T4_OUTDIRS)
+		expand(OUTBASE + "{outdir}/results.txt", 
+		       outdir=T1_OUTDIRS + 
+			      T2_OUTDIRS + 
+			      T3_OUTDIRS + 
+			      T4_OUTDIRS
+		      ),
+
+		expand(OUTBASE + "{outdir}/results-with-names.txt", 
+		       outdir=T2_OUTDIRS + 
+			      T3_OUTDIRS + 
+			      T4_OUTDIRS
+		      ),
+
+		expand(OUTBASE + "{outdir}/results-top50.txt", 
+		       outdir=T3_OUTDIRS + 
+			      T4_OUTDIRS
+		      ),
+
+		expand(OUTBASE + "{outdir}/results-significance-explored.txt", 
+		       outdir=T3_OUTDIRS + 
+			      T4_OUTDIRS
+		      ),
+
+		expand(OUTBASE + "{outdir}/results-circadian-members-table.txt", 
+		       outdir=T4_OUTDIRS
+		      ),
+
+		expand(OUTBASE + "{outdir}/results-PI3K-members-table.txt", 
+		       outdir=T4_OUTDIRS
+		      )
 
 # rules 1-10 can run in parallel.
 rule SFARI_original_1:
-	input:
-		# TODO: Check this input
-		INBASE + "SFARI.txt",
-		INBASE + "denovo-db.non-ssc-samples.variants.tsv",
-		INBASE + "denovo-db.ssc-samples.variants.tsv",
-		INBASE + "Yuen2017-T3.csv"
 	output:
 		OUTBASE + "SFARI-original/results.txt"
 	shell:
@@ -101,12 +119,6 @@ rule SFARI_original_1:
 			   
 
 rule Reactome_original_2:
-	input:
-		# TODO: Check this input
-		INBASE + "Reactome-pathways.txt",
-		INBASE + "denovo-db.non-ssc-samples.variants.tsv",
-		INBASE + "denovo-db.ssc-samples.variants.tsv",
-		INBASE + "Yuen2017-T3.csv"
 	output:
 		OUTBASE + "Reactome-original/results.txt"
 	shell:
@@ -118,12 +130,6 @@ rule Reactome_original_2:
 			  )
 
 rule SFARI_intron_3:
-	input:
-		# TODO: Check this input
-		INBASE + "SFARI.txt",
-		INBASE + "denovo-db.non-ssc-samples.variants.tsv",
-		INBASE + "denovo-db.ssc-samples.variants.tsv",
-		INBASE + "Yuen2017-T3.csv"	
 	output:
 		OUTBASE + "SFARI-intron/results.txt"
 	shell:
@@ -134,12 +140,6 @@ rule SFARI_intron_3:
 			   shuf=SHUFFLES
 			  )
 rule Reactome_intron_4:
-	input:
-		# TODO: Check this input
-		INBASE + "Reactome-pathways.txt",
-		INBASE + "denovo-db.non-ssc-samples.variants.tsv",
-		INBASE + "denovo-db.ssc-samples.variants.tsv",
-		INBASE + "Yuen2017-T3.csv"
 	output:
 		OUTBASE + "Reactome-intron/results.txt"
 	shell:
@@ -151,12 +151,6 @@ rule Reactome_intron_4:
 			  )
 
 rule SFARI_not_intron_5:
-	input:
-		# TODO: Check this input
-		INBASE + "SFARI.txt",
-		INBASE + "denovo-db.non-ssc-samples.variants.tsv",
-		INBASE + "denovo-db.ssc-samples.variants.tsv",
-		INBASE + "Yuen2017-T3.csv"
 	output:
 		OUTBASE + "SFARI-not-intron/results.txt"
 	shell:
@@ -168,12 +162,6 @@ rule SFARI_not_intron_5:
 			  )
 
 rule Reactome_not_intron_6:
-	input:
-		# TODO: Check this input
-		INBASE + "Reactome-pathways.txt",
-		INBASE + "denovo-db.non-ssc-samples.variants.tsv",
-		INBASE + "denovo-db.ssc-samples.variants.tsv",
-		INBASE + "Yuen2017-T3.csv"
 	output:
 		OUTBASE + "Reactome-not-intron/results.txt"
 	shell:
@@ -185,12 +173,6 @@ rule Reactome_not_intron_6:
 			  )
 
 rule SFARI_Yuen_7:
-	input:
-		# TODO: Check this input
-		INBASE + "SFARI.txt",
-		INBASE + "denovo-db.non-ssc-samples.variants.tsv",
-		INBASE + "denovo-db.ssc-samples.variants.tsv",
-		INBASE + "Yuen2017-T3.csv"
 	output:
 		OUTBASE + "SFARI-Yuen/results.txt"
 	shell:
@@ -202,12 +184,6 @@ rule SFARI_Yuen_7:
 			  )
 
 rule Reactome_Yuen_8:
-	input:
-		# TODO: Check this input
-		INBASE + "Reactome-pathways.txt",
-		INBASE + "denovo-db.non-ssc-samples.variants.tsv",
-		INBASE + "denovo-db.ssc-samples.variants.tsv",
-		INBASE + "Yuen2017-T3.csv"
 	output:
 		OUTBASE + "Reactome-Yuen/results.txt"
 	shell:
@@ -219,12 +195,6 @@ rule Reactome_Yuen_8:
 			  )
 
 rule SFARI_Yuen_autism_Turner_control_9:
-	input:
-		# TODO: Check this input
-		INBASE + "SFARI.txt",
-		INBASE + "denovo-db.non-ssc-samples.variants.tsv",
-		INBASE + "denovo-db.ssc-samples.variants.tsv",
-		INBASE + "Yuen2017-T3.csv"
 	output:
 		OUTBASE + "SFARI-Yuen-autism-Turner-control/results.txt"
 	shell:
@@ -236,12 +206,6 @@ rule SFARI_Yuen_autism_Turner_control_9:
 			  )
 
 rule Reactome_Yuen_autism_Turner_control_10:
-	input:
-		# TODO: Check this input
-		INBASE + "Reactome-pathways.txt",
-		INBASE + "denovo-db.non-ssc-samples.variants.tsv",
-		INBASE + "denovo-db.ssc-samples.variants.tsv",
-		INBASE + "Yuen2017-T3.csv"
 	output:
 		OUTBASE + "Reactome-Yuen-autism-Turner-control/results.txt"
 	shell:
@@ -339,7 +303,6 @@ rule top50_of_10s_output_and_names_16:
 
 rule reactome_orig_circadian_members_17:
 	input:
-		# TODO: WHY?
 		OUTBASE + "Reactome-original/R-HSA-400253-mutex.txt"
 	output:
 		OUTBASE + "Reactome-original/results-circadian-members-table.txt"
@@ -352,7 +315,6 @@ rule reactome_orig_circadian_members_17:
 
 rule reactome_orig_pi3k_members_18:
 	input:
-		# TODO: WHY?
 		OUTBASE + "Reactome-original/R-HSA-1257604-mutex.txt"
 	output:
 		OUTBASE + "Reactome-original/results-PI3K-members-table.txt"
