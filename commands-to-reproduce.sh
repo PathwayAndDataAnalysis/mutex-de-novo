@@ -11,7 +11,7 @@ FDRS="0.01 0.05 0.1 0.2 0.3 0.4 0.5"
 
 # Runs mutual exclusivity test on SFARI genes and Reactome pathways
 # param 1: data identifier
-calculate () 
+calculate() 
 {
 	# Test SFARI genes
 	$CMD calculate $1 SFARI SFARI/$1 $ITER
@@ -52,6 +52,9 @@ calculate yuen-an-autism-not-intron
 
 # Yuen + Turner
 calculate yuen-turner-autism
+
+# Yuen + (An data on Turner samples)
+calculate yuen-turner-redo-autism
 
 # Autism samples from Yuen, control samples from Turner
 calculate yuen-autism-turner-control
