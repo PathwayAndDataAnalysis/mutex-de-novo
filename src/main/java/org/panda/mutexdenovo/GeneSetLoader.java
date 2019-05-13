@@ -1,7 +1,7 @@
 package org.panda.mutexdenovo;
 
 import org.panda.resource.ReactomePathway;
-import org.panda.resource.SFARI;
+import org.panda.resource.autismdatasets.SFARI;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -42,6 +42,8 @@ public class GeneSetLoader
 			Set<String> genes = SFARI.get().getGenesWithMaxScore(i);
 			geneSets.put("SFARI-1-to-" + i, genes);
 		}
+
+		geneSets.put("SFARI-all", new HashSet<>(SFARI.get().getAllGenes()));
 
 		cleanAndremoveRedundant(geneSets);
 		return geneSets;

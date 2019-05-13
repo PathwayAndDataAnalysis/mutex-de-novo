@@ -1,6 +1,6 @@
 package org.panda.mutexdenovo;
 
-import org.panda.resource.SFARI;
+import org.panda.resource.autismdatasets.SFARI;
 import org.panda.utility.ArrayUtil;
 import org.panda.utility.CollectionUtil;
 import org.panda.utility.FileUtil;

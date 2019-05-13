@@ -1,6 +1,6 @@
 package org.panda.mutexdenovo;
 
-import org.panda.resource.DenovoDB;
+import org.panda.resource.autismdatasets.DenovoDB;
 import org.panda.utility.ArrayUtil;
 import org.panda.utility.FileUtil;
 
