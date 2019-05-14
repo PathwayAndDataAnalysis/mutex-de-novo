@@ -1,6 +1,6 @@
 #!/bin/env bash
 
-#SBATCH --accounts=compbio
+#SBATCH --account=compbio
 #SBATCH --time=3-01:00:00
 #SBATCH --job-name=subber_autism_mutex_repro
 #SBATCH --output=/home/groups/precepts/manningh/codebases/mutex-de-novo/snakemake/snakelogs/repro/submitter_repro_%j.out
