@@ -1,10 +1,12 @@
 #!/bin/bash
 
 # Randomization amount to use for matrix shuffling
-ITER="100"
+ITER="25"
 
 # Prefix of the command to run mutex-de-novo
-CMD="java -jar target/mutex-de-novo.jar"
+CMD="java -jar ../target/mutex-de-novo.jar"
+
+OUTBASE="../data/output/repro1/"
 
 # FDR cutoffs to use in exploring the result sizes
 FDRS="0.01 0.05 0.1 0.2 0.3 0.4 0.5"
@@ -14,13 +16,13 @@ FDRS="0.01 0.05 0.1 0.2 0.3 0.4 0.5"
 calculate() 
 {
 	# Test SFARI genes
-	$CMD calculate $1 SFARI SFARI/$1 $ITER
+	${CMD} calculate ${1} SFARI ${OUTBASE}/SFARI/${1} ${ITER}
 
 	# Test Reactome pathways
-	$CMD calculate $1 Reactome Reactome/$1 $ITER
+	${CMD} calculate ${1} Reactome ${OUTBASE}/Reactome/${1} ${ITER}
 
 	# Explore significances and thresholds on Reactome results
-	$CMD explore-significance-in-results Reactome/$1/results.txt Reactome/$1/results-significance-explored.txt mutex $FDRS
+	${CMD} explore-significance-in-results ${OUTBASE}/Reactome/${1}/results.txt ${OUTBASE}Reactome/${1}/results-significance-explored.txt mutex ${FDRS}
 }
 
 # Prepares a table with the members of the specificed pathway
@@ -29,38 +31,38 @@ calculate()
 # param 3: pathway name (no spaces or funky characters)
 members()
 {
-	$CMD annotate-set-members Reactome/$1/$2-mutex.txt $1 Reactome/$1/results-$3-members-table.txt
+	${CMD} annotate-set-members ${OUTBASE}/Reactome/${1}/${2}-mutex.txt ${1} ${OUTBASE}/Reactome/${1}/results-${3}-members-table.txt
 }
 
 # Yuen only
-calculate yuen-autism
+#calculate yuen-autism
 
 # Turner only
-calculate turner-autism
+#calculate turner-autism
 
 # An only
-calculate an-autism
+#calculate an-autism
 
 # Yuen + An
-calculate yuen-an-autism
+#calculate yuen-an-autism
 
 # Only intron mutations from Yuen + An
-calculate yuen-an-autism-intron
+#calculate yuen-an-autism-intron
 
 # Excluding intron mutations from Yuen + An
-calculate yuen-an-autism-not-intron
+#calculate yuen-an-autism-not-intron
 
 # Yuen + Turner
-calculate yuen-turner-autism
+#calculate yuen-turner-autism
 
 # Yuen + (An data on Turner samples)
-calculate yuen-turner-redo-autism
+#calculate yuen-turner-redo-autism
 
 # Autism samples from Yuen, control samples from Turner
-calculate yuen-autism-turner-control
+#calculate yuen-autism-turner-control
 
 # Autism samples from Yuen, control samples from An
-calculate yuen-autism-an-control
+#calculate yuen-autism-an-control
 
 # Table 9. Members of Circadian Clock pathway annotated for Yuen+An dataset
 members yuen-an-autism R-HSA-400253 circadian

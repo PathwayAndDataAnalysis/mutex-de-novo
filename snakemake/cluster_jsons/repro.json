@@ -9,184 +9,54 @@
         "e" : "../snakelogs/repro/{rule}_%j.err",
         "mem" : "3G"
     },
-    "SFARI_original_1" :
+    "test_SFARI_genes" :
     {
         "time" : "36:00:00",
         "nodes" :	 1,
         "partition" : "exacloud",
-        "J" : "sfari_orig",
-        "o" : "../snakelogs/repro/rule1_SFARI_orig_%j.out",
-        "e" : "../snakelogs/repro/rule1_SFARI_orig_%j.err",
+        "J" : "sfari_tester",
+        "o" : "../snakelogs/repro/sfari_gene_tester_%j.out",
+        "e" : "../snakelogs/repro/sfari_gene_tester_%j.err",
         "mem" : "3G"
     },
-    "Reactome_original_2" :
+    "test_Reactome_genes" :
     {
         "time" : "36:00:00",
         "nodes" :        1,
         "partition" : "exacloud",
-        "J" : "reactome_orig",
-        "o" : "../snakelogs/repro/rule2_Reactome_orig_%j.out",
-        "e" : "../snakelogs/repro/rule2_Reactome_orig_%j.err",
+        "J" : "reactome_tester",
+        "o" : "../snakelogs/repro/reactome_gene_tester_%j.out",
+        "e" : "../snakelogs/repro/reactome_gene_tester_%j.err",
         "mem" : "3G"
     },
-    "SFARI_intron_3" :
-    {
-        "time" : "36:00:00",
-        "nodes" :        1,
-        "partition" : "exacloud",
-        "J" : "sfari_intron",
-        "o" : "../snakelogs/repro/rule3_SFARI_intron_%j.out",
-        "e" : "../snakelogs/repro/rule3_SFARI_intron_%j.err",
-        "mem" : "3G"
-    },
-    "Reactome_intron_4" :
-    {
-        "time" : "36:00:00",
-        "nodes" :        1,
-        "partition" : "exacloud",
-        "J" : "reactome_intron",
-        "o" : "../snakelogs/repro/rule4_Reactome_intron_%j.out",
-        "e" : "../snakelogs/repro/rule4_Reactome_intron_%j.err",
-        "mem" : "3G"
-    },
-    "SFARI_not_intron_5" :
-    {
-        "time" : "36:00:00",
-        "nodes" :        1,
-        "partition" : "exacloud",
-        "J" : "sfari_not_intron",
-        "o" : "../snakelogs/repro/rule5_SFARI_not_intron_%j.out",
-        "e" : "../snakelogs/repro/rule5_SFARI_not_intron_%j.err",
-        "mem" : "3G"
-    },
-    "Reactome_not_intron_6" :
-    {
-        "time" : "36:00:00",
-        "nodes" :        1,
-        "partition" : "exacloud",
-        "J" : "reactome_not_intron",
-        "o" : "../snakelogs/repro/rule6_Reactome_not_intron_%j.out",
-        "e" : "../snakelogs/repro/rule6_Reactome_not_intron_%j.err",
-        "mem" : "3G"
-    },
-    "SFARI_Yuen_7" :
-    {
-        "time" : "36:00:00",
-        "nodes" :        1,
-        "partition" : "exacloud",
-        "J" : "sfari_yuen",
-        "o" : "../snakelogs/repro/rule7_SFARI_yuen_%j.out",
-        "e" : "../snakelogs/repro/rule7_SFARI_yuen_%j.err",
-        "mem" : "3G"
-    },
-    "Reactome_Yuen_8" :
-    {
-        "time" : "36:00:00",
-        "nodes" :        1,
-        "partition" : "exacloud",
-        "J" : "reactome_yuen",
-        "o" : "../snakelogs/repro/rule8_Reactome_yuen_%j.out",
-        "e" : "../snakelogs/repro/rule8_Reactome_yuen_%j.err",
-        "mem" : "3G"
-    },
-    "SFARI_Yuen_autism_turner_control_9" :
-    {
-        "time" : "36:00:00",
-        "nodes" :        1,
-        "partition" : "exacloud",
-        "J" : "sfari_turncontr",
-        "o" : "../snakelogs/repro/rule9_SFARI_TurnContr_%j.out",
-        "e" : "../snakelogs/repro/rule9_SFARI_TurnContr_%j.err",
-        "mem" : "3G"
-    },
-    "Reactome_Yuen_autism_Turner_control_10" :
-    {
-        "time" : "36:00:00",
-        "nodes" :        1,
-        "partition" : "exacloud",
-        "J" : "reactome_turncontr",
-        "o" : "../snakelogs/repro/rule10_Reactome_TurnContr_%j.out",
-        "e" : "../snakelogs/repro/rule10_Reactome_TurnContr_%j.err",
-        "mem" : "3G"
-    },
-    "FDR_exploration_of_2s_output_11" :
+    "explore_significances_and_thresholds" :
     {
         "time" : "2:00:00",
         "nodes" :        1,
         "partition" : "exacloud",
-        "J" : "fdr_orig",
-        "o" : "../snakelogs/repro/rule11_FDR_orig_%j.out",
-        "e" : "../snakelogs/repro/rule11_FDR_orig_%j.err",
+        "J" : "fdr_explorer",
+        "o" : "../snakelogs/repro/fdr_explorer_%j.out",
+        "e" : "../snakelogs/repro/fdr_explorer_%j.err",
         "mem" : "1G"
     },
-    "FDR_exploration_of_8s_output_12" :
-    {
-        "time" : "2:00:00",
-        "nodes" :        1,
-        "partition" : "exacloud",
-        "J" : "fdr_yuen",
-        "o" : "../snakelogs/repro/rule12_FDR_yuen_%j.out",
-        "e" : "../snakelogs/repro/rule12_FDR_yuen_%j.err",
-        "mem" : "1G"
-    },
-    "FDR_exploration_of_10s_output_13" :
-    {
-        "time" : "2:00:00",
-        "nodes" :        1,
-        "partition" : "exacloud",
-        "J" : "fdr_turncont",
-        "o" : "../snakelogs/repro/rule13_FDR_TurnContr_%j.out",
-        "e" : "../snakelogs/repro/rule13_FDR_TurnContr_%j.err",
-        "mem" : "1G"
-    },
-    "top50_of_2s_output_and_names_14" :
-    {
-        "time" : "2:00:00",
-        "nodes" :        1,
-        "partition" : "exacloud",
-        "J" : "top50_orig",
-        "o" : "../snakelogs/repro/rule14_top50_orig_%j.out",
-        "e" : "../snakelogs/repro/rule14_top50_orig_%j.err",
-        "mem" : "1G"
-    },
-    "top50_of_8s_output_and_names_15" :
-    {
-        "time" : "2:00:00",
-        "nodes" :        1,
-        "partition" : "exacloud",
-        "J" : "top50_yuen",
-        "o" : "../snakelogs/repro/rule15_top50_yuen_%j.out",
-        "e" : "../snakelogs/repro/rule15_top50_yuen_%j.err",
-        "mem" : "1G"
-    },
-    "top50_of_10s_output_and_names_16" :
-    {
-        "time" : "2:00:00",
-        "nodes" :        1,
-        "partition" : "exacloud",
-        "J" : "top50_turncont",
-        "o" : "../snakelogs/repro/rule16_top50_TurnContr_%j.out",
-        "e" : "../snakelogs/repro/rule16_top50_TurnContr_%j.err",
-        "mem" : "1G"
-    },
-    "reactome_orig_circadian_members_17" :
+    "annotate_circadian_members" :
     {
         "time" : "2:00:00",
         "nodes" :        1,
         "partition" : "exacloud",
         "J" : "circadian_member_getter",
-        "o" : "../snakelogs/repro/rule17_circadian_%j.out",
-        "e" : "../snakelogs/repro/rule17_circadian_%j.err",
+        "o" : "../snakelogs/repro/circadian_%j.out",
+        "e" : "../snakelogs/repro/circadian_%j.err",
         "mem" : "1G"
     },
-    "reactome_orig_pi3k_members_18" :
+    "annotate_PI3K_members" :
     {
         "time" : "2:00:00",
         "nodes" :        1,
         "partition" : "exacloud",
         "J" : "pi3k_member_getter",
-        "o" : "../snakelogs/repro/rule18_pi3k_%j.out",
-        "e" : "../snakelogs/repro/rule18_pi3k_%j.err",
+        "o" : "../snakelogs/repro/pi3k_%j.out",
+        "e" : "../snakelogs/repro/pi3k_%j.err",
         "mem" : "1G"
     }
 }
