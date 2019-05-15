@@ -97,10 +97,10 @@ rule targets:
 
 rule test_SFARI_genes:
 	output:
-		OUTBASE + "SFARI/{analysis}/results.txt"
+		OUTBASE + "SFARI/{dataset}/results.txt"
 	shell:
 		"""
-		{cmd_prfx} {{wildcards.analysis}} SFARI {ob}/SFARI/{{wildcards.analysis}} {shuf}
+		{cmd_prfx} {{wildcards.dataset}} SFARI {ob}/SFARI/{{wildcards.dataset}} {shuf}
 		""".format(
 			   cmd_prfx=CALC_CMD,
 			   ob=OUTBASE,
@@ -109,10 +109,10 @@ rule test_SFARI_genes:
 
 rule test_Reactome_genes:
 	output:
-		OUTBASE + "Reactome/{analysis}/results.txt"
+		OUTBASE + "Reactome/{dataset}/results.txt"
 	shell:
 		"""
-		{cmd_prfx} {{wildcards.analysis}} Reactome {ob}/Reactome/{{wildcards.analysis}} {shuf}
+		{cmd_prfx} {{wildcards.dataset}} Reactome {ob}/Reactome/{{wildcards.dataset}} {shuf}
 		""".format(
 			   cmd_prfx=CALC_CMD,
 			   ob=OUTBASE,
@@ -121,10 +121,10 @@ rule test_Reactome_genes:
 
 rule explore_significances_and_thresholds:
 	input:
-		OUTBASE + "Reactome/{analysis}/results.txt"
+		OUTBASE + "Reactome/{dataset}/results.txt"
 	output:
-		named = OUTBASE + "Reactome/{analysis}/results-with-names.txt",
-		sigex = OUTBASE + "Reactome/{analysis}/results-significance-explored.txt"
+		named = OUTBASE + "Reactome/{dataset}/results-with-names.txt",
+		sigex = OUTBASE + "Reactome/{dataset}/results-significance-explored.txt"
 	shell:
 		"""
 		{cmd_prfx} {{input}} {{output.sigex}} mutex {fdrs}
@@ -135,12 +135,12 @@ rule explore_significances_and_thresholds:
 
 rule annotate_circadian_members:
 	input:
-		OUTBASE + "Reactome/{analysis}/results.txt"
+		OUTBASE + "Reactome/{dataset}/results.txt"
 	output:
-		OUTBASE + "Reactome/{analysis}/results-circadian-members-table.txt"
+		OUTBASE + "Reactome/{dataset}/results-circadian-members-table.txt"
 	shell:
 		"""
-		{cmd_prfx} {ob}/Reactome/{{wildcards.analysis}}/R-HSA-400253-mutex.txt {{wildcards.analysis}} {{output}}
+		{cmd_prfx} {ob}/Reactome/{{wildcards.dataset}}/R-HSA-400253-mutex.txt {{wildcards.dataset}} {{output}}
 		""".format(
 			   cmd_prfx=ANNO_CMD,
 			   ob=OUTBASE
@@ -148,12 +148,12 @@ rule annotate_circadian_members:
 
 rule annotate_PI3K_members:
 	input:
-		OUTBASE + "Reactome/{analysis}/results.txt"
+		OUTBASE + "Reactome/{dataset}/results.txt"
 	output:
-		OUTBASE + "Reactome/{analysis}/results-PI3K-members-table.txt"
+		OUTBASE + "Reactome/{dataset}/results-PI3K-members-table.txt"
 	shell:
 		"""
-		{cmd_prfx} {ob}/Reactome/{{wildcards.analysis}}/R-HSA-1257604-mutex.txt {{wildcards.analysis}} {{output}}
+		{cmd_prfx} {ob}/Reactome/{{wildcards.dataset}}/R-HSA-1257604-mutex.txt {{wildcards.dataset}} {{output}}
 		""".format(
 			   cmd_prfx=ANNO_CMD,
 			   ob=OUTBASE
