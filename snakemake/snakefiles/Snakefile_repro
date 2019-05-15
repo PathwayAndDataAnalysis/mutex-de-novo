@@ -109,7 +109,8 @@ rule test_SFARI_genes:
 
 rule test_Reactome_genes:
 	output:
-		OUTBASE + "Reactome/{dataset}/results.txt"
+		OUTBASE + "Reactome/{dataset}/results.txt",
+		OUTBASE + "Reactome/{dataset}/results-with-names.txt"
 	shell:
 		"""
 		{cmd_prfx} {{wildcards.dataset}} Reactome {ob}/Reactome/{{wildcards.dataset}} {shuf}
@@ -123,11 +124,10 @@ rule explore_significances_and_thresholds:
 	input:
 		OUTBASE + "Reactome/{dataset}/results.txt"
 	output:
-		named = OUTBASE + "Reactome/{dataset}/results-with-names.txt",
-		sigex = OUTBASE + "Reactome/{dataset}/results-significance-explored.txt"
+		OUTBASE + "Reactome/{dataset}/results-significance-explored.txt"
 	shell:
 		"""
-		{cmd_prfx} {{input}} {{output.sigex}} mutex {fdrs}
+		{cmd_prfx} {{input}} {{output}} mutex {fdrs}
 		""".format(
 			   cmd_prfx=EXPL_CMD,
 			   fdrs=FDR_STR
