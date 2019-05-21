@@ -35,34 +35,34 @@ members()
 }
 
 # Yuen only
-#calculate yuen-autism
+calculate yuen-autism
 
 # Turner only
-#calculate turner-autism
+calculate turner-autism
 
 # An only
-#calculate an-autism
+calculate an-autism
 
 # Yuen + An
-#calculate yuen-an-autism
+calculate yuen-an-autism
 
 # Only intron mutations from Yuen + An
-#calculate yuen-an-autism-intron
+calculate yuen-an-autism-intron
 
 # Excluding intron mutations from Yuen + An
-#calculate yuen-an-autism-not-intron
+calculate yuen-an-autism-not-intron
 
 # Yuen + Turner
-#calculate yuen-turner-autism
+calculate yuen-turner-autism
 
 # Yuen + (An data on Turner samples)
-#calculate yuen-turner-redo-autism
+calculate yuen-turner-redo-autism
 
 # Autism samples from Yuen, control samples from Turner
-#calculate yuen-autism-turner-control
+calculate yuen-autism-turner-control
 
 # Autism samples from Yuen, control samples from An
-#calculate yuen-autism-an-control
+calculate yuen-autism-an-control
 
 # Table 9. Members of Circadian Clock pathway annotated for Yuen+An dataset
 members yuen-an-autism R-HSA-400253 circadian

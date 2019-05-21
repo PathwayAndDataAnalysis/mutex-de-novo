@@ -135,7 +135,7 @@ rule explore_significances_and_thresholds:
 
 rule annotate_circadian_members:
 	input:
-		OUTBASE + "Reactome/{dataset}/results.txt"
+		OUTBASE + "Reactome/{dataset}/results-significance-explored.txt"
 	output:
 		OUTBASE + "Reactome/{dataset}/results-circadian-members-table.txt"
 	shell:
@@ -148,7 +148,7 @@ rule annotate_circadian_members:
 
 rule annotate_PI3K_members:
 	input:
-		OUTBASE + "Reactome/{dataset}/results.txt"
+		OUTBASE + "Reactome/{dataset}/results-significance-explored.txt"
 	output:
 		OUTBASE + "Reactome/{dataset}/results-PI3K-members-table.txt"
 	shell:
