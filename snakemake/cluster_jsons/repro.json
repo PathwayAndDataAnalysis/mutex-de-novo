@@ -1,0 +1,62 @@
+{
+    "__default__" :
+    {
+        "time" : "35:00:00",
+        "nodes" : 1,
+        "partition" : "exacloud",
+        "J" : "{rule}.{wildcards.run}",
+        "o" : "../snakelogs/repro/{rule}_%j.out",
+        "e" : "../snakelogs/repro/{rule}_%j.err",
+        "mem" : "3G"
+    },
+    "test_SFARI_genes" :
+    {
+        "time" : "36:00:00",
+        "nodes" :	 1,
+        "partition" : "exacloud",
+        "J" : "sfari_tester",
+        "o" : "../snakelogs/repro/sfari_gene_tester_%j.out",
+        "e" : "../snakelogs/repro/sfari_gene_tester_%j.err",
+        "mem" : "3G"
+    },
+    "test_Reactome_genes" :
+    {
+        "time" : "36:00:00",
+        "nodes" :        1,
+        "partition" : "exacloud",
+        "J" : "reactome_tester",
+        "o" : "../snakelogs/repro/reactome_gene_tester_%j.out",
+        "e" : "../snakelogs/repro/reactome_gene_tester_%j.err",
+        "mem" : "3G"
+    },
+    "explore_significances_and_thresholds" :
+    {
+        "time" : "2:00:00",
+        "nodes" :        1,
+        "partition" : "exacloud",
+        "J" : "fdr_explorer",
+        "o" : "../snakelogs/repro/fdr_explorer_%j.out",
+        "e" : "../snakelogs/repro/fdr_explorer_%j.err",
+        "mem" : "1G"
+    },
+    "annotate_circadian_members" :
+    {
+        "time" : "2:00:00",
+        "nodes" :        1,
+        "partition" : "exacloud",
+        "J" : "circadian_member_getter",
+        "o" : "../snakelogs/repro/circadian_%j.out",
+        "e" : "../snakelogs/repro/circadian_%j.err",
+        "mem" : "1G"
+    },
+    "annotate_PI3K_members" :
+    {
+        "time" : "2:00:00",
+        "nodes" :        1,
+        "partition" : "exacloud",
+        "J" : "pi3k_member_getter",
+        "o" : "../snakelogs/repro/pi3k_%j.out",
+        "e" : "../snakelogs/repro/pi3k_%j.err",
+        "mem" : "1G"
+    }
+}

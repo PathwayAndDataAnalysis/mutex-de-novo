@@ -1,0 +1,161 @@
+__author__ = "Hannah Manning"
+__email__ = "manningh@ohsu.edu"
+__license__ = "MIT"
+
+# PURPOSE
+
+"""
+Workflow for parallelized reproduction of the mutual exclusivity analysis
+performed by Babur, O'Roak, and Manning and to be submitted for publication
+in 2019.
+"""
+
+#######################################
+
+# DEFINE VARIABLES FOR EASY SWAPPING:
+
+CONFIGURATION_YAML="snakemake/configs/repro.yaml"
+
+########################################
+
+
+# set the base directory mutex-de-novo/
+BASEDIR = os.path.abspath("../../") + "/"
+
+# fetch the user's run configuration
+configfile: BASEDIR + CONFIGURATION_YAML
+
+# set the log directory.
+# note: this can be a snakemake gotcha! ensure log directory exists prior to launching pipeline
+LOGBASE = "{bd}snakemake/snakelogs/repro/".format(bd=BASEDIR)
+
+# set the input and output directories.
+# note: unlike with log dirs, snakemake will make the outdir if you haven't already.
+INBASE = "{bd}.panda/".format(bd=BASEDIR)
+OUTBASE = "{bd}data/output/repro/".format(bd=BASEDIR)
+
+# pull some values from config file
+# at the end of the day, we will have new outdirs under data/output/
+# each of those will contain, at least, a file called "results.txt"
+# some will contain more results files than others
+# files with the same set of resulting file titles (e.g. "results.txt" & "results-with-names.txt") are grouped:
+T1_OUTDIRS = config["type-1-outdir"]
+T2_OUTDIRS = config["type-2-outdir"]
+T3_OUTDIRS = config["type-3-outdir"]
+T4_OUTDIRS = config["type-4-outdir"]
+
+# get number of memory pointer shuffle steps:
+SHUFFLES=str(config["nshuffles"])
+
+# get a space-separated "list" of FDRs to use in exploring results
+# it's a string instead of a list because Bash will be interpreting it
+FDR_STR=config["FDRs"]
+
+# all commands start with...
+COMMAND_BASE="java -jar {bd}target/mutex-de-novo.jar".format(bd=BASEDIR)
+
+# set commands:
+CALC_CMD=COMMAND_BASE + " calculate" 
+EXPL_CMD=COMMAND_BASE + " explore-significance-in-results"
+ANNO_CMD=COMMAND_BASE + " annotate-set-members"
+
+# BEGIN RULES
+# general notes:
+#   - anything that is in "{{}}" will get missed by the first .format() sweep and will be left for snakemake to evaluate
+#   - these things are usually (always?) expansions & wildcards
+
+# "input" here defines which files we expect to see at the end of the whole workflow
+rule targets:
+	input:
+		expand(OUTBASE + "{outdir}/results.txt", 
+		       outdir=T1_OUTDIRS + 
+			      T2_OUTDIRS + 
+			      T3_OUTDIRS +
+			      T4_OUTDIRS 
+		      ),
+
+		expand(OUTBASE + "{outdir}/results-with-names.txt", 
+		       outdir=T2_OUTDIRS +
+			      T3_OUTDIRS +
+			      T4_OUTDIRS 
+		      ),
+
+		expand(OUTBASE + "{outdir}/results-significance-explored.txt", 
+		       outdir=T2_OUTDIRS +
+			      T3_OUTDIRS +
+			      T4_OUTDIRS 
+		      ),
+
+		expand(OUTBASE + "{outdir}/results-circadian-members-table.txt", 
+		       outdir=T3_OUTDIRS
+		      ),
+
+		expand(OUTBASE + "{outdir}/results-PI3K-members-table.txt", 
+		       outdir=T4_OUTDIRS
+		      )
+
+
+rule test_SFARI_genes:
+	output:
+		OUTBASE + "SFARI/{dataset}/results.txt"
+	shell:
+		"""
+		{cmd_prfx} {{wildcards.dataset}} SFARI {ob}/SFARI/{{wildcards.dataset}} {shuf}
+		""".format(
+			   cmd_prfx=CALC_CMD,
+			   ob=OUTBASE,
+			   shuf=SHUFFLES
+			  )
+
+rule test_Reactome_genes:
+	output:
+		OUTBASE + "Reactome/{dataset}/results.txt",
+		OUTBASE + "Reactome/{dataset}/results-with-names.txt"
+	shell:
+		"""
+		{cmd_prfx} {{wildcards.dataset}} Reactome {ob}/Reactome/{{wildcards.dataset}} {shuf}
+		""".format(
+			   cmd_prfx=CALC_CMD,
+			   ob=OUTBASE,
+			   shuf=SHUFFLES
+			  )
+
+rule explore_significances_and_thresholds:
+	input:
+		OUTBASE + "Reactome/{dataset}/results.txt"
+	output:
+		OUTBASE + "Reactome/{dataset}/results-significance-explored.txt"
+	shell:
+		"""
+		{cmd_prfx} {{input}} {{output}} mutex {fdrs}
+		""".format(
+			   cmd_prfx=EXPL_CMD,
+			   fdrs=FDR_STR
+			  )
+
+rule annotate_circadian_members:
+	input:
+		OUTBASE + "Reactome/{dataset}/results-significance-explored.txt"
+	output:
+		OUTBASE + "Reactome/{dataset}/results-circadian-members-table.txt"
+	shell:
+		"""
+		{cmd_prfx} {ob}/Reactome/{{wildcards.dataset}}/R-HSA-400253-mutex.txt {{wildcards.dataset}} {{output}}
+		""".format(
+			   cmd_prfx=ANNO_CMD,
+			   ob=OUTBASE
+			  )
+
+rule annotate_PI3K_members:
+	input:
+		OUTBASE + "Reactome/{dataset}/results-significance-explored.txt"
+	output:
+		OUTBASE + "Reactome/{dataset}/results-PI3K-members-table.txt"
+	shell:
+		"""
+		{cmd_prfx} {ob}/Reactome/{{wildcards.dataset}}/R-HSA-1257604-mutex.txt {{wildcards.dataset}} {{output}}
+		""".format(
+			   cmd_prfx=ANNO_CMD,
+			   ob=OUTBASE
+			  )
+
