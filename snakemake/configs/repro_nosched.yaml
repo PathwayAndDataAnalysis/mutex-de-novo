@@ -1,0 +1,58 @@
+nshuffles:
+        "10000"
+
+
+FDRs:
+        "0.01 0.05 0.1 0.2 0.3 0.4 0.5"
+
+
+repro_name:
+        "repro_nosched"
+
+
+# needs only "results.txt" at the end of the day
+type-1-outdir:
+        [
+        "SFARI/an-autism",
+        "SFARI/turner-autism",
+        "SFARI/yuen-an-autism",
+        "SFARI/yuen-an-autism-intron",
+        "SFARI/yuen-an-autism-not-intron",
+        "SFARI/yuen-autism",
+        "SFARI/yuen-autism-an-control",
+        "SFARI/yuen-autism-turner-control",
+        "SFARI/yuen-turner-autism",
+        "SFARI/yuen-turner-redo-autism"
+        ]
+
+
+# needs all of type 1's outfiles plus:
+#       "results-with-names.txt"
+#       "results-significance-explored.txt"
+type-2-outdir:
+        [
+         "Reactome/an-autism",
+         "Reactome/turner-autism",
+         "Reactome/yuen-an-autism-intron",
+         "Reactome/yuen-an-autism-not-intron",
+         "Reactome/yuen-autism-an-control",
+         "Reactome/yuen-autism-turner-control",
+         "Reactome/yuen-turner-redo-autism"
+        ]
+
+
+# needs all of type 2's outfiles plus:
+#       "results-circadian-members-table.txt"
+type-3-outdir:
+        [
+         "Reactome/yuen-an-autism",
+         "Reactome/yuen-autism"
+        ]
+
+
+# needs all of type 2's outfiles plus: 
+#       "results-PI3K-members-table.txt"
+type-4-outdir:
+        [
+         "Reactome/yuen-turner-autism"
+        ] 
