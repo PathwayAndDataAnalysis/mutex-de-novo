@@ -13,4 +13,4 @@ echo LOGDIR is $LOGDIR
 mkdir -p $LOGDIR
 
 cd ${SUBMITDIR}
-sbatch --time=3-01:00:00 --job-name=subber_ASD_mutex_repro --output=${LOGDIR}submitter_repro_%j.out --error=${LOGDIR}submitter_repro_%j.err --partition=long_jobs slurm_repro.sh
+qsub --time=3-01:00:00 -N=subber_ASD_mutex_repro --output=${LOGDIR}submitter_repro_%j.out --error=${LOGDIR}submitter_repro_%j.err --partition=long_jobs qsub_repro.pbs
