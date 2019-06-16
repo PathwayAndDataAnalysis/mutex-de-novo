@@ -7,8 +7,8 @@ The reproducibility pipeline is available in three flavors: a sequential reprodu
 Please reach out if you encounter any issues with these workflows or our analyses, or if you are using a scheduler that is not included here. We are happy to help!
 
 ### Dependencies
-Python v3
-Snakemake v3.13
+  * Python v3
+  * Snakemake v3.13
 
 ### Output locations:
 
