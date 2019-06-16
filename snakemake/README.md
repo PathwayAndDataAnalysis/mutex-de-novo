@@ -1,16 +1,16 @@
 # Using Snakemake to reproduce our analyses
 
-This readme will guide you through reproducing the results in [our 2019 manuscript](https://www.biorxiv.org/content/10.1101/653527v1). This manuscript is available is currently undergoing peer review but is available on bioRxiv in its original form the meantime. 
+This readme will guide you through reproducing the results in [our 2019 manuscript](https://www.biorxiv.org/content/10.1101/653527v1). This manuscript currently undergoing peer review. In the meantime, it is available on bioRxiv in its original form. 
 
-The reproducibility pipeline is available to you in three flavors: a sequential reproduction, a parallelized workflow that relies on the slurm workload manager, and a parallelized workflow that relies on the PBS scheduler. Each style requires that you have copied and built the mutex-de-novo software as described [here](https://github.com/PathwayAndDataAnalysis/mutex-de-novo).
+The reproducibility pipeline is available in three flavors: a sequential reproduction, a parallelized workflow that relies on the slurm workload manager, and a parallelized workflow that relies on the PBS scheduler. Each style requires that you have copied and built the mutex-de-novo software as described [here](https://github.com/PathwayAndDataAnalysis/mutex-de-novo).
 
 Please reach out if you encounter any issues with these workflows or our analyses, or if you are using a scheduler that is not included here. We are happy to help!
 
-## Dependencies
+### Dependencies
 Python v3
 Snakemake v3.13
 
-## Output locations:
+### Output locations:
 
 Snakemake log files will appear in `mutex-de-novo/snakemake/snakelogs/`.
 Results will appear in `mutex-de-novo/data/output/`.
@@ -49,9 +49,9 @@ cd mutex-de-novo/snakemake/submitters/
 source submit_slurm_repro.sh
 ```
 
-## Parallelized reproduction with PBS
+## Option 3: Parallelized reproduction with PBS
 
-If you want to submit your workflow to the PBS queue, then follow these instructions and let us know if they work. Because we don't have PBS installed on our cluster, we haven't been able to test/debug this approach, but we'd love to work with you to get it up and running.
+If you want to submit your workflow to the PBS queue, then follow these instructions and let us know if they work. We don't have PBS installed on our cluster so we haven't been able to test/debug this approach, but we'd love to work with you to get it up and running.
 
 ### Navigate to the submitters directory
 
