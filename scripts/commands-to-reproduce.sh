@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Randomization amount to use for matrix shuffling
-ITER="25"
+ITER="10000"
 
 # Prefix of the command to run mutex-de-novo
 CMD="java -jar ../target/mutex-de-novo.jar"
@@ -23,6 +23,15 @@ calculate()
 
 	# Explore significances and thresholds on Reactome results
 	${CMD} explore-significance-in-results ${OUTBASE}/Reactome/${1}/results.txt ${OUTBASE}Reactome/${1}/results-significance-explored.txt mutex ${FDRS}
+}
+
+calculate-differential()
+{
+	# Test SFARI genes
+	${CMD} calculate-differential ${1} ${2} SFARI ${OUTBASE}/SFARI/${1}-differential ${ITER}
+
+	# Test Reactome pathways
+	${CMD} calculate-differential ${1} ${2} Reactome ${OUTBASE}/Reactome/${1}-differential ${ITER}
 }
 
 # Prepares a table with the members of the specificed pathway
@@ -63,6 +72,12 @@ calculate yuen-autism-turner-control
 
 # Autism samples from Yuen, control samples from An
 calculate yuen-autism-an-control
+
+# Differential mutual exclusivity comparing Yuen+An matrix to the case where An samples are replaced with controls
+calculate-differential yuen-an-autism yuen-autism-an-control
+
+# Differential mutual exclusivity comparing Yuen+Turner matrix to the case where Turner samples are replaced with controls
+calculate-differential yuen-turner-autism yuen-autism-turner-control
 
 # Table 9. Members of Circadian Clock pathway annotated for Yuen+An dataset
 members yuen-an-autism R-HSA-400253 circadian
