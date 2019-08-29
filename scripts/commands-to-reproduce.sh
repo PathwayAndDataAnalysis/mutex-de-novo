@@ -25,6 +25,9 @@ calculate()
 	${CMD} explore-significance-in-results ${OUTBASE}/Reactome/${1}/results.txt ${OUTBASE}Reactome/${1}/results-significance-explored.txt mutex ${FDRS}
 }
 
+# Runs differential mutual exclusivity comparing the first matrix to the second matrix on SFARI genes and Reactome pathways
+# param 1: identifier for test matrix
+# param 2: identifier for control matrix
 calculate-differential()
 {
 	# Test SFARI genes
