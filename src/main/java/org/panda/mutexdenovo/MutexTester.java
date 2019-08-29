@@ -19,22 +19,22 @@ public class MutexTester
 	/**
 	 * Alteration matrix.
 	 */
-	private Matrix matrix;
+	protected Matrix matrix;
 
 	/**
 	 * Gene sets to be tested for mutual exclusivity and co-occurrence.
 	 */
-	private Map<String, Set<String>> geneSets;
+	protected Map<String, Set<String>> geneSets;
 
 	/**
 	 * The output directory where the result will be written.
 	 */
-	private String outDir;
+	protected String outDir;
 
 	/**
 	 * Number of randomizations for testing. Run time is proportional to this number.
 	 */
-	private int iteration;
+	protected int iteration;
 
 	public MutexTester(Matrix matrix, Map<String, Set<String>> geneSets, String outDir, int iteration)
 	{
@@ -82,7 +82,7 @@ public class MutexTester
 	 * @return p-values
 	 * @throws IOException if cannot write to the output directory
 	 */
-	private Map<String, Double>[] getMutexCoocPvals() throws IOException
+	protected Map<String, Double>[] getMutexCoocPvals() throws IOException
 	{
 		// Get edge representation of the matrix
 		List<Matrix.Edge> edges = matrix.getEdges();
@@ -135,6 +135,24 @@ public class MutexTester
 			prg.tick();
 		}
 
+		// Calculate p-values, write and return
+		return calculateAndWritePvalues(mutexMeetMap, coocMeetMap, geneMutexMeetMaps, geneCoocMeetMaps);
+	}
+
+	/**
+	 * Calculates p-values and writes them into files, also returns.
+	 *
+	 * @param mutexMeetMap
+	 * @param coocMeetMap
+	 * @param geneMutexMeetMaps
+	 * @param geneCoocMeetMaps
+	 * @return
+	 * @throws IOException
+	 */
+	protected Map<String, Double>[] calculateAndWritePvalues(
+		Map<String, Integer> mutexMeetMap, Map<String, Integer> coocMeetMap,
+		Map<String, Map<String, Integer>> geneMutexMeetMaps, Map<String, Map<String, Integer>> geneCoocMeetMaps) throws IOException
+	{
 		// Calculate gene p-values
 		Map<String, Map<String, Double>> geneMutexPvalMaps = geneSets.keySet().stream().collect(Collectors.toMap(Function.identity(),
 			name -> geneSets.get(name).stream().collect(Collectors.toMap(Function.identity(),
@@ -166,13 +184,14 @@ public class MutexTester
 		};
 	}
 
-	private Map<Integer, Long> getSampleHitCounts(List<Matrix.Edge> edges, Set<String> genes)
+
+	protected Map<Integer, Long> getSampleHitCounts(List<Matrix.Edge> edges, Set<String> genes)
 	{
 		return edges.stream().filter(e -> genes.contains(e.gene)).map(e -> e.sampleIndex)
 			.collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
 	}
 
-	private Map<String, Set<Integer>> getGeneToIndices(List<Matrix.Edge> edges, Set<String> genes)
+	protected Map<String, Set<Integer>> getGeneToIndices(List<Matrix.Edge> edges, Set<String> genes)
 	{
 		Map<String, Set<Integer>> map = new HashMap<>();
 		edges.stream().filter(e -> genes.contains(e.gene)).forEach(edge ->
@@ -183,9 +202,13 @@ public class MutexTester
 		return map;
 	}
 
-	private long getSampleHitsForGeneInGroup(Map<String, Set<Integer>> geneToInds, String gene,
+	protected long getSampleHitsForGeneInGroup(Map<String, Set<Integer>> geneToInds, String gene,
 		Map<Integer, Long> sampleHitCounts)
 	{
+		if (!geneToInds.containsKey(gene))
+		{
+			return 0;
+		}
 		return geneToInds.get(gene).stream().map(sampleHitCounts::get).reduce((h1, h2) -> h1 + h2).get();
 	}
 

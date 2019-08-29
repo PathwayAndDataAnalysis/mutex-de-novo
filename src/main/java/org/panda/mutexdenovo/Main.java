@@ -119,6 +119,37 @@ public class Main
 			}
 
 		}, "  matrix-indicator   gene-sets-indicator   output-directory   random-iterations", 4),
+		CALCULATE_DIFFERENTIAL("Compute differential mutual exclusivity and co-occurrence.",
+			args ->
+		{
+			// Read parameters
+			String matrixFileTest = args[1];
+			String matrixFileCtrl = args[2];
+			String groupsFile = args[3];
+			String outDir = args[4];
+			int iterations = Integer.valueOf(args[5]);
+
+			// Load the matrix
+			Matrix matrixTest = loadMatrix(matrixFileTest);
+			Matrix matrixCtrl = loadMatrix(matrixFileCtrl);
+
+			// Read gene sets
+			GeneSetLoader loader = new GeneSetLoader(matrixTest, matrixCtrl);
+
+			// Load gene sets
+			Map<String, Set<String>> geneSets = groupsFile.equals(GeneSetLoader.SFARI_SETS) ? loader.loadSFARI() :
+				groupsFile.equals(GeneSetLoader.REACTOME_SETS) ? loader.loadReactome() : loader.loadFile(groupsFile);
+
+			// Test exclusivity
+			DifferentialMutexTester tester = new DifferentialMutexTester(matrixTest, matrixCtrl, geneSets, outDir, iterations);
+			tester.run();
+
+			if (groupsFile.equals(GeneSetLoader.REACTOME_SETS))
+			{
+				ReactomeNameAdder.add(outDir + "/results.txt", outDir + "/results-with-names.txt");
+			}
+
+		}, "  matrix-indicator-test   matrix-indicator-control   gene-sets-indicator   output-directory   random-iterations", 5),
 		ANNOTATE_SET_MEMBERS("Generate a table for members of a gene set in the results.",
 			args ->
 		{

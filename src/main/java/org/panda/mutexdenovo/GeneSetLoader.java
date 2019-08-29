@@ -16,17 +16,17 @@ public class GeneSetLoader
 	public static final String REACTOME_SETS = "Reactome";
 
 	/**
-	 * Alteration matrix relevant for the gene sets.
+	 * Alteration matrices relevant for the gene sets.
 	 */
-	private Matrix matrix;
+	private Matrix[] matrices;
 
 	/**
-	 * Constructor with the relevant matrix.
-	 * @param matrix the alteration matrix
+	 * Constructor with the relevant matrices.
+	 * @param matrix the alteration matrices
 	 */
-	public GeneSetLoader(Matrix matrix)
+	public GeneSetLoader(Matrix... matrix)
 	{
-		this.matrix = matrix;
+		this.matrices = matrix;
 	}
 
 	/**
@@ -49,12 +49,22 @@ public class GeneSetLoader
 		return geneSets;
 	}
 
+	private Set<String> getRelevantGenes()
+	{
+		Set<String> genes = new HashSet<>();
+		for (Matrix matrix : matrices)
+		{
+			genes.addAll(matrix.getGenes());
+		}
+		return genes;
+	}
+
 	/**
 	 * Load Reactome gene sets.
 	 */
 	public Map<String, Set<String>> loadReactome()
 	{
-		Map<String, Set<String>> orig = ReactomePathway.get().getCroppedPathways(matrix.getGenes());
+		Map<String, Set<String>> orig = ReactomePathway.get().getCroppedPathways(getRelevantGenes());
 
 		Map<String, Set<String>> sets = new HashMap<>();
 
@@ -74,7 +84,7 @@ public class GeneSetLoader
 
 	private void cleanAndremoveRedundant(Map<String, Set<String>> geneSets)
 	{
-		Set<String> genes = matrix.getGenes();
+		Set<String> genes = getRelevantGenes();
 		geneSets.values().forEach(set -> set.retainAll(genes));
 
 		Set<String> remove = new HashSet<>();

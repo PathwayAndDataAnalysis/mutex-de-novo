@@ -146,13 +146,14 @@ public class Matrix
 
 	public int countCoverage(Set<String> genes)
 	{
-		int n = rowMap.get(genes.iterator().next()).length;
+		int n = rowMap.values().iterator().next().length;
 		int cov = 0;
 		for (int i = 0; i < n; i++)
 		{
 			for (String gene : genes)
 			{
-				if (rowMap.get(gene)[i])
+				boolean[] b = rowMap.get(gene);
+				if (b != null && b[i])
 				{
 					cov++;
 					break;
@@ -174,7 +175,7 @@ public class Matrix
 
 	public int countOverlap(Set<String> genes)
 	{
-		int n = rowMap.get(genes.iterator().next()).length;
+		int n = rowMap.values().iterator().next().length;
 		int ov = 0;
 
 		for (int i = 0; i < n; i++)
@@ -182,7 +183,8 @@ public class Matrix
 			boolean covered = false;
 			for (String gene : genes)
 			{
-				if (rowMap.get(gene)[i])
+				boolean[] b = rowMap.get(gene);
+				if (b != null && b[i])
 				{
 					if (!covered) covered = true;
 					else ov++;
